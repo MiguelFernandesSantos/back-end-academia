@@ -18,13 +18,22 @@ VALUES ('cliente'), ('Funcionario'), ('Administrador');
 CREATE TABLE IF NOT EXISTS usuario (
     usuario_id BIGINT AUTO_INCREMENT PRIMARY KEY,
     usuario_nome VARCHAR(50) NOT NULL,
-    usuario_sobrenome VARCHAR(50) NOT NULL,
     usuario_email VARCHAR(100) NOT NULL,
     usuario_senha VARCHAR(100) NOT NULL,
-    usuario_telefone VARCHAR(25) NOT NULL,
-    usuario_nascimento TIMESTAMP NOT NULL,
-    usuario_tipo_usuario BIGINT NOT NULL,
+    usuario_tipo_usuario BIGINT NOT NULL DEFAULT 1,
     CONSTRAINT usuario_previlegio FOREIGN KEY (usuario_tipo_usuario) REFERENCES tipo_usuario(tipo_usuario_id)
+);
+
+CREATE TABLE IF NOT EXISTS token_alteracao (
+    token_alteracao_id bigint auto_increment,
+	token_alteracao_usuario bigint not null,
+    token_alteracao_confirmacao varchar(75) not null,
+    token_alteracao_data_confirmacao timestamp not null,
+    token_alteracao_final varchar(75) not null,
+    token_alteracao_data_final timestamp,
+	CONSTRAINT senha_primaria primary key(token_alteracao_id),
+	CONSTRAINT senha_usuario_estrangeira foreign key(token_alteracao_usuario) references usuario(usuario_id),
+	CONSTRAINT unico_por_usuario UNIQUE(token_alteracao_usuario)
 );
 
 CREATE TABLE IF NOT EXISTS cliente_plano (

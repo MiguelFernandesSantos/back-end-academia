@@ -13,7 +13,7 @@ import org.eclipse.microprofile.jwt.Claim;
 @ApplicationScoped
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-@Path("/api/chamados/auth")
+@Path("/api/academia/auth")
 public class AutenticacaoController {
 
     @Inject
